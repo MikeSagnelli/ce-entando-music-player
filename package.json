@@ -58,6 +58,7 @@
       "**/*.{js,jsx}",
       "!**/index.js",
       "!index.js",
+      "!src/reportWebVitals.js",
       "!src/index.js",
       "!src/components/index.js",
       "!**/coverage/**",
