@@ -41,7 +41,7 @@ workflows:
   version: 2
   main_workflow:
     jobs:
-      - npm-install
+      - yarn-install
       - test:
           requires:
-            - npm-install
+            - yarn-install
