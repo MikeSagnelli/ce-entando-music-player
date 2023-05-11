@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  yarn-install:
+    docker:
+      - image: circleci/node:18
+    steps:
+      - checkout
+      - run:
+          name: Save Build Number
+          command: echo $CIRCLE_BUILD_NUM > .publish_version
+      - save_cache:
+          key: publish-version-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - .publish_version
+      - restore_cache:
+          key: node-dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: yarn
+      - save_cache:
+          key: node-dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  test:
+    docker:
+      - image: 'circleci/node:18'
+    steps:
+      - checkout
+      - restore_cache:
+          key: 'node-dependency-cache-{{ checksum "package.json" }}'
+      - run:
+          name: Run Test
+          command: >-
+            yarn test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+workflows:
+  version: 2
+  main_workflow:
+    jobs:
+      - npm-install
+      - test:
+          requires:
+            - npm-install
