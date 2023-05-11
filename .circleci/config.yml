@@ -2,7 +2,7 @@ version: 2
 jobs:
   yarn-install:
     docker:
-      - image: circleci/node:18
+      - image: circleci/node:16
     steps:
       - checkout
       - run:
@@ -15,7 +15,7 @@ jobs:
       - restore_cache:
           key: node-dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Install npm
+          name: Install yarn
           command: yarn
       - save_cache:
           key: node-dependency-cache-{{ checksum "package.json" }}
@@ -23,7 +23,7 @@ jobs:
             - node_modules
   test:
     docker:
-      - image: 'circleci/node:18'
+      - image: 'circleci/node:16'
     steps:
       - checkout
       - restore_cache:
@@ -41,7 +41,7 @@ workflows:
   version: 2
   main_workflow:
     jobs:
-      - npm-install
+      - yarn-install
       - test:
           requires:
-            - npm-install
+            - yarn-install
