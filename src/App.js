@@ -1,25 +1,32 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useState } from 'react'
+import { createGlobalStyle } from 'styled-components'
+import { normalize } from 'styled-normalize'
+
+import { DARK_THEME, LIGHT_THEME } from './utils/theme'
+import { ComponentsProvider } from './components/ComponentsProvider'
+
+const GlobalStyle = createGlobalStyle`
+  ${normalize}
+
+  body {
+    background-color: ${(props) => props.theme.backgroundColor};
+    padding: 141px 100px;
+  }
+`
 
 function App() {
+  const [isDarkTheme, setIsDarkTheme] = useState(false)
+  const theme = isDarkTheme ? DARK_THEME : LIGHT_THEME
+
+  console.log('TEMP: ', setIsDarkTheme)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ComponentsProvider theme={theme}>
+      <GlobalStyle />
+      <div>
+        <p>Hello World!</p>
+      </div>
+    </ComponentsProvider>
   )
 }
 
