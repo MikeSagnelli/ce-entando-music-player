@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Sound from 'react-sound'
 import { createGlobalStyle } from 'styled-components'
 import { normalize } from 'styled-normalize'
 
@@ -17,12 +18,14 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false)
+  const [audio, setAudio] = useState('')
   const theme = isDarkTheme ? DARK_THEME : LIGHT_THEME
 
   const testFreesoundAPI = async () => {
     const response1 = await searchSounds('dogs')
     const response2 = await getSoundInformation(response1?.results?.[0]?.id)
     console.log({ response1, response2 })
+    setAudio(response2.previews['preview-hq-mp3'])
   }
 
   useEffect(() => {
@@ -34,6 +37,7 @@ function App() {
   return (
     <ComponentsProvider theme={theme}>
       <GlobalStyle />
+      <Sound url={audio} playStatus={Sound.status.PLAYING} />
       <div>
         <p>Hello World!</p>
       </div>
