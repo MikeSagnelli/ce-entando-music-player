@@ -1,4 +1,4 @@
 export const FONT_VARIANTS = {
-  bold: 'Karla-Bold',
-  regular: 'Karla-Regular',
+  $bold: 'Karla-Bold',
+  $regular: 'Karla-Regular',
 }

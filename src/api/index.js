@@ -9,20 +9,17 @@ export const fetchFreesound = async (url, search = '') => {
   return jsonResponse
 }
 
-export const searchSounds = async (query) => {
-  const searchParams = [{ name: 'query', value: query }]
+export const searchSounds = async (query, page = 1) => {
+  const searchParams = [
+    { name: 'query', value: query },
+    { name: 'page', value: page },
+    { name: 'fields', value: 'previews,name,username' },
+  ]
   const parsedParams = parseSearchParams(searchParams)
   const url = '/search/text'
 
   const searchSoundsResponse = await fetchFreesound(url, parsedParams)
   return searchSoundsResponse
-}
-
-export const getSoundInformation = async (soundId) => {
-  const url = `/sounds/${soundId}`
-
-  const soundInformation = await fetchFreesound(url)
-  return soundInformation
 }
 
 function parseSearchParams(searchParams = []) {
