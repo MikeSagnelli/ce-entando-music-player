@@ -21,14 +21,14 @@ describe('typography helpers', () => {
 
   describe('getFontSizeStyle', () => {
     it('should generate the font size styles', () => {
-      const style = getFontSizeStyle({ fontSize: 100 })
+      const style = getFontSizeStyle({ $fontSize: 100 })
       expect(style).toEqual('font-size: 100px;')
     })
   })
 
   describe('getLineHeightStyle', () => {
-    it('should generate line height styles', () => {
-      const style = getLineHeightStyle({ lineHeight: 100 })
+    it('should generate line $height styles', () => {
+      const style = getLineHeightStyle({ $lineHeight: 100 })
       expect(style).toEqual('line-height: 100px;')
     })
   })
@@ -37,8 +37,8 @@ describe('typography helpers', () => {
     it('should generate the font color styles', () => {
       const lightStyle = getColorStyle({ theme: LIGHT_THEME })
       const darkStyle = getColorStyle({ theme: DARK_THEME })
-      expect(lightStyle).toEqual(`color: ${LIGHT_THEME.textColor};`)
-      expect(darkStyle).toEqual(`color: ${DARK_THEME.textColor};`)
+      expect(lightStyle).toEqual(`color: ${LIGHT_THEME.$textColor};`)
+      expect(darkStyle).toEqual(`color: ${DARK_THEME.$textColor};`)
     })
   })
 

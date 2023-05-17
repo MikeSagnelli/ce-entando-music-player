@@ -6,6 +6,6 @@ describe('App.js', () => {
   it('should render hello world message', () => {
     render(<App />)
 
-    expect(screen.getByText('Hello World!')).toBeInTheDocument()
+    expect(screen.getByText('Entando Sound Player')).toBeInTheDocument()
   })
 })
