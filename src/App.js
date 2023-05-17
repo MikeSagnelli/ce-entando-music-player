@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-// import Sound from 'react-sound'
 import { createGlobalStyle } from 'styled-components'
 import { normalize } from 'styled-normalize'
 
 import { DARK_THEME, LIGHT_THEME } from './utils/theme'
 import { Header } from './components/organisms/Header'
 import { SearchSound } from './components/organisms/SearchSound'
+import { Player } from './components/organisms/Player'
 import { ComponentsProvider } from './components/molecules/ComponentsProvider'
 import { searchSounds } from './api'
 
@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false)
-  // const [audio, setAudio] = useState('')
+  const [audio, setAudio] = useState()
   const theme = isDarkTheme ? DARK_THEME : LIGHT_THEME
 
   const fetchSounds = (searchText = '', page) => {
@@ -31,8 +31,8 @@ function App() {
     <ComponentsProvider theme={theme}>
       <GlobalStyle />
       <Header isDark={isDarkTheme} setIsDark={setIsDarkTheme} />
-      <SearchSound fetchSounds={fetchSounds} />
-      {/* <Sound url={audio} playStatus={Sound.status.PLAYING} /> */}
+      <SearchSound fetchSounds={fetchSounds} setAudio={setAudio} />
+      {!!audio && <Player audio={audio} />}
     </ComponentsProvider>
   )
 }

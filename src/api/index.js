@@ -13,7 +13,7 @@ export const searchSounds = async (query, page = 1) => {
   const searchParams = [
     { name: 'query', value: query },
     { name: 'page', value: page },
-    { name: 'fields', value: 'previews,name,username' },
+    { name: 'fields', value: 'previews,name,username,duration' },
   ]
   const parsedParams = parseSearchParams(searchParams)
   const url = '/search/text'

@@ -5,6 +5,7 @@ import SearchIcon from '../../../assets/icons/search.png'
 import Loading from '../../../assets/icons/loading.gif'
 import Left from '../../../assets/icons/left.png'
 import Right from '../../../assets/icons/right.png'
+import Play from '../../../assets/icons/play.png'
 import styled from 'styled-components'
 import {
   getWidthStyle,
@@ -15,6 +16,7 @@ import {
   getFlexDirection,
   getHeightStyle,
 } from '../../../utils/styles'
+import { secondsToMMSS } from '../../../utils/timeFormat'
 import { CustomImage } from '../../atoms/CustomImage'
 import { Title } from '../../atoms/Title'
 
@@ -39,10 +41,6 @@ const StyledTable = styled.table`
     text-align: left;
     padding: 8px;
   }
-
-  & tr:nth-child(even) {
-    background-color: ${(props) => props.theme.$rowBackgroundColor};
-  }
 `
 
 const SoundsContainer = styled(Container)`
@@ -61,11 +59,12 @@ const Button = styled.button`
   background-color: transparent;
   outline: none;
   border: none;
+  cursor: pointer;
 `
 
 const MIN_HEIGHT = 650
 
-const SearchSound = ({ fetchSounds }) => {
+const SearchSound = ({ fetchSounds, setAudio }) => {
   const [searchText, setSearchText] = useState('')
   const currentPage = useRef(1)
   const [lastPage, setLastPage] = useState(false)
@@ -103,7 +102,12 @@ const SearchSound = ({ fetchSounds }) => {
               </th>
               <th>
                 <Title $bold $fontSize={22} $height={23} $lineHeight={23}>
-                  Uploaded by
+                  Author
+                </Title>
+              </th>
+              <th>
+                <Title $bold $fontSize={22} $height={23} $lineHeight={23}>
+                  Duration
                 </Title>
               </th>
               <th></th>
@@ -122,7 +126,16 @@ const SearchSound = ({ fetchSounds }) => {
                     {row.username}
                   </Title>
                 </td>
-                <td></td>
+                <td>
+                  <Title $fontSize={20} $height={23} $lineHeight={23}>
+                    {secondsToMMSS(row.duration)}
+                  </Title>
+                </td>
+                <td>
+                  <Button onClick={() => setAudio(row)}>
+                    <CustomImage $height={20} $width={20} icon={Play}></CustomImage>
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -287,6 +300,7 @@ const SearchSound = ({ fetchSounds }) => {
 
 SearchSound.propTypes = {
   fetchSounds: PropTypes.func,
+  setAudio: PropTypes.func,
 }
 
 export default SearchSound
